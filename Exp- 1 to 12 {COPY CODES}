@@ -1,0 +1,2154 @@
+Exp - 1) Part - A
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Define the 'student' class
+class student {
+private:
+    int roll_no;
+    string name;
+    string student_class;
+
+public:
+    // Function to accept student data
+    void accept_data() {
+        cout << "Enter Roll Number: ";
+        cin >> roll_no;
+        
+        cin.ignore();
+        
+        cout << "Enter Name: ";
+        
+        getline(cin, name);
+        
+        cout << "Enter Class: ";
+        getline(cin, student_class);
+    }
+
+    // Function to display student data
+    void display_data() {
+        cout << "\n--- Student Details ---\n";
+        cout << "Roll Number: " << roll_no << "\n";
+        cout << "Name: " << name << "\n";
+        cout << "Class: " << student_class << "\n";
+    }
+};
+
+int main() {
+    // Declare an object of the student class
+    student s1;
+
+    cout << "--- Enter Data for One Student ---\n";
+    // Call the member function to accept data
+    s1.accept_data();
+
+    // Call the member function to display data
+    s1.display_data();
+
+    return 0;
+}
+(part - B)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Define the 'Book' class
+class Book {
+private:
+    string book_name;
+    float price;
+    int no_of_pages;
+
+public:
+    // Function to accept book data
+    void accept_data() {
+        cin.ignore();
+        cout << "Enter Book Name: ";
+        getline(cin, book_name);
+        
+        cout << "Enter Price: ";
+        cin >> price;
+        
+        cout << "Enter Number of Pages: ";
+        cin >> no_of_pages;
+    }
+
+    // Function to display book data
+    void display_data() {
+        cout << "\nBook Name: " << book_name;
+        cout << "\nPrice: " << price;
+        cout << "\nNumber of Pages: " << no_of_pages << "\n";
+    }
+
+    // Function to get the price of the book
+    float get_price() const {
+        return price;
+    }
+
+    // Function to get the name of the book
+    string get_book_name() const {
+        return book_name;
+    }
+};
+
+int main() {
+    // Declare two objects of the Book class
+    Book book1, book2;
+
+    cout << "--- Enter Data for Book 1 ---\n";
+    book1.accept_data();
+
+    cout << "\n--- Enter Data for Book 2 ---\n";
+    
+    cin.ignore();
+    book2.accept_data();
+    
+    cout << "\n--- Book Details ---\n";
+    cout << "\nBook 1:";
+    book1.display_data();
+    cout << "\nBook 2:";
+    book2.display_data();
+
+    // Compare prices and display the name of the book with the greater price
+    cout << "\n--- Price Comparison ---\n";
+    if (book1.get_price() > book2.get_price()) {
+        cout << "**The book with the greater price is: " << book1.get_book_name() << "** (Price: " << book1.get_price() << ")\n";
+    } else if (book2.get_price() > book1.get_price()) {
+        cout << "**The book with the greater price is: " << book2.get_book_name() << "** (Price: " << book2.get_price() << ")\n";
+    } else {
+        cout << "Both books have the same price.\n";
+    }
+
+    return 0;
+}
+(part - C)
+#include <iostream>
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+// Define the 'time' class
+class Time {
+private:
+    int hours;
+    int minutes;
+    int seconds;
+    long total_seconds;
+
+public:
+    // Function to accept time in HH:MM:SS format
+    void accept_time() {
+        string time_str;
+        cout << "Enter time in HH:MM:SS format (e.g., 05:30:15): ";
+        cin >> time_str;
+
+        char colon;
+        stringstream ss(time_str);
+        
+        if (ss >> hours >> colon && colon == ':' && 
+            ss >> minutes >> colon && colon == ':' && 
+            ss >> seconds) {
+            
+            if (hours >= 0 && minutes >= 0 && minutes < 60 && seconds >= 0 && seconds < 60) {
+                cout << "Time accepted successfully: " << hours << "h " << minutes << "m " << seconds << "s\n";
+            } else {
+                cout << "Invalid time components entered. Setting to 00:00:00.\n";
+                hours = minutes = seconds = 0;
+            }
+        } else {
+            cout << "Invalid time format. Setting to 00:00:00.\n";
+            hours = minutes = seconds = 0;
+        }
+    }
+
+    // Function to convert time to total seconds
+    void convert_to_seconds() {
+        
+        total_seconds = (long)hours * 3600 + (long)minutes * 60 + (long)seconds;
+    }
+
+    // Function to display total seconds
+    void display_total_seconds() {
+        cout << "\n--- Conversion Result ---\n";
+        cout << "The time (" << hours << ":" << minutes << ":" << seconds << ") is equivalent to:\n";
+        cout << "**Total Seconds: " << total_seconds << "**\n";
+    }
+};
+
+int main() {
+    // Declare an object of the Time class
+    Time t1;
+
+    t1.accept_time();
+    
+    t1.convert_to_seconds();
+    
+    t1.display_total_seconds();
+
+    return 0;
+}
+Exp - 2) (part - A)
+#include <iostream>
+#include <string>
+#include <limits>
+
+using namespace std;
+
+const int NUM_CITIES = 5;
+
+// Define the 'city' class
+class city {
+private:
+    string name;
+    long population;
+
+public:
+    // Function to accept city data
+    void accept_data() {
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter City Name: ";
+        getline(cin, name);
+        
+        cout << "Enter Population: ";
+        cin >> population;
+    }
+
+    // Function to display city data
+    void display_data() {
+        cout << "Name: " << name << ", Population: " << population << "\n";
+    }
+
+    // Function to get the population
+    long get_population() const {
+        return population;
+    }
+
+    // Function to get the name
+    string get_name() const {
+        return name;
+    }
+};
+
+int main() {
+    // Declare an array of 5 city objects
+    city city_array[NUM_CITIES];
+
+    cout << "--- Enter Data for " << NUM_CITIES << " Cities ---\n";
+    for (int i = 0; i < NUM_CITIES; ++i) {
+        cout << "\nEnter Details for City " << i + 1 << ":\n";
+        city_array[i].accept_data();
+    }
+
+    // Find the city with the highest population
+    long max_population = 0;
+    string city_with_max_pop;
+
+    for (int i = 0; i < NUM_CITIES; ++i) {
+        if (city_array[i].get_population() > max_population) {
+            max_population = city_array[i].get_population();
+            city_with_max_pop = city_array[i].get_name();
+        }
+    }
+
+    cout << "\n--- All City Details ---\n";
+    for (int i = 0; i < NUM_CITIES; ++i) {
+        city_array[i].display_data();
+    }
+
+    cout << "\n--- Result ---\n";
+    cout << "**The city with the highest population is: " << city_with_max_pop << "** (Population: " << max_population << ")\n";
+
+    return 0;
+}
+(part - b)
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+const int NUM_ACCOUNTS = 10;
+
+// Define the 'Account' class
+class Account {
+private:
+    long account_no;
+    double balance;
+
+public:
+    // Function to accept account data
+    void accept_data(int index) {
+        cout << "Enter Account No. for Account " << index << ": ";
+        cin >> account_no;
+        
+        cout << "Enter Balance for Account " << index << ": ";
+        cin >> balance;
+    }
+
+    // Function to calculate and add interest
+    void give_interest() {
+        if (balance >= 5000.0) {
+            double interest = balance * 0.10;
+            balance += interest;
+        }
+    }
+
+    // Function to display account data
+    void display_data() {
+        cout << fixed << setprecision(2);
+        cout << "A/C No: " << account_no << ", New Balance: ₹" << balance << "\n";
+    }
+};
+
+int main() {
+    // Declare an array of 10 Account objects
+    Account account_array[NUM_ACCOUNTS];
+
+    cout << "--- Enter Data for " << NUM_ACCOUNTS << " Accounts ---\n";
+    for (int i = 0; i < NUM_ACCOUNTS; ++i) {
+        cout << "\nEnter Details for Account " << i + 1 << ":\n";
+        account_array[i].accept_data(i + 1);
+    }
+
+    cout << "\n--- Applying 10% Interest to Eligible Accounts (Balance >= 5000) ---\n";
+    for (int i = 0; i < NUM_ACCOUNTS; ++i) {
+        account_array[i].give_interest();
+    }
+
+    cout << "\n--- Updated Account Details ---\n";
+    for (int i = 0; i < NUM_ACCOUNTS; ++i) {
+        account_array[i].display_data();
+    }
+
+    return 0;
+}
+(part- c)
+#include <iostream>
+#include <string>
+#include <limits>
+#include <algorithm>
+
+using namespace std;
+
+const int NUM_STAFF = 5;
+
+// Define the 'Staff' class
+class Staff {
+private:
+    string name;
+    string post;
+
+public:
+    // Function to accept staff data
+    void accept_data() {
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter Staff Name: ";
+        getline(cin, name);
+        
+        cout << "Enter Post (e.g., HOD, Teacher, Clerk): ";
+        getline(cin, post);
+    }
+
+    // Function to get the staff name
+    string get_name() const {
+        return name;
+    }
+
+    // Function to check if the staff is HOD
+    bool is_hod() const {
+        // Convert post to uppercase for case-insensitive comparison
+        string temp_post = post;
+        transform(temp_post.begin(), temp_post.end(), temp_post.begin(), ::toupper);
+        
+        return temp_post == "HOD";
+    }
+};
+
+int main() {
+    // Declare an array of 5 Staff objects
+    Staff staff_array[NUM_STAFF];
+
+    cout << "--- Enter Data for " << NUM_STAFF << " Staff Members ---\n";
+    for (int i = 0; i < NUM_STAFF; ++i) {
+        cout << "\nEnter Details for Staff Member " << i + 1 << ":\n";
+        staff_array[i].accept_data();
+    }
+
+    cout << "\n--- Staff Members Who Are HOD ---\n";
+    bool found_hod = false;
+    for (int i = 0; i < NUM_STAFF; ++i) {
+        if (staff_array[i].is_hod()) {
+            cout << "**" << staff_array[i].get_name() << "**\n";
+            found_hod = true;
+        }
+    }
+
+    if (!found_hod) {
+        cout << "No staff member found with the post 'HOD'.\n";
+    }
+
+    return 0;
+}
+Exp - 3) (Part - A)
+#include <iostream>
+#include <string>
+#include <limits>
+
+using namespace std;
+
+// Define the 'book' class
+class book {
+private:
+    string book_title;
+    string author_name;
+    float price;
+
+public:
+    // Function to accept book data
+    void accept_info() {
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << "Enter Book Title: ";
+        getline(cin, book_title);
+        
+        cout << "Enter Author Name: ";
+        getline(cin, author_name);
+        
+        cout << "Enter Price: ";
+        cin >> price;
+    }
+
+    // Function to display book data
+    void display_info() {
+        cout << "\n--- Book Information ---\n";
+        cout << "Title: " << book_title << "\n";
+        cout << "Author: " << author_name << "\n";
+        cout << "Price: " << price << "\n";
+    }
+};
+
+int main() {
+    // Declare an object of the book class
+    book b1;
+    
+    // Declare a pointer to a book object and make it point to b1
+    book *ptr_b1;
+    ptr_b1 = &b1;
+
+    cout << "--- Accepting Data Using Pointer ---\n";
+    // Invoke the member function using the arrow operator (->)
+    ptr_b1->accept_info();
+
+    cout << "\n--- Displaying Data Using Pointer ---\n";
+    // Invoke the member function using the arrow operator (->)
+    ptr_b1->display_info();
+
+    return 0;
+}
+(part- b)
+#include <iostream>
+
+using namespace std;
+
+// Define the 'student' class
+class student {
+private:
+    int roll_no;
+    float percentage;
+
+public:
+    // Function to accept student data
+    void accept_data(int roll, float perc) {
+        // Use 'this' pointer to distinguish between member variables and parameters
+        this->roll_no = roll;
+        this->percentage = perc;
+    }
+
+    // Function to display student data
+    void display_data() {
+        cout << "\n--- Student Details (Using this pointer) ---\n";
+        // Use 'this' pointer to explicitly call another member function
+        this->print_details();
+    }
+    
+    // Helper function to print details
+    void print_details() {
+        cout << "Roll No: " << roll_no << "\n";
+        cout << "Percentage: " << percentage << "%\n";
+    }
+};
+
+int main() {
+    // Declare an object of the student class
+    student s1;
+    int roll;
+    float perc;
+
+    cout << "Enter Roll Number: ";
+    cin >> roll;
+    cout << "Enter Percentage: ";
+    cin >> perc;
+
+    // Invoke accept_data
+    s1.accept_data(roll, perc);
+
+    // Invoke display_data which internally uses 'this'
+    s1.display_data();
+
+    return 0;
+}
+(part - c)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Define the Outer Class
+class Person {
+private:
+    string name;
+
+    // Define the Nested Class (Inner Class)
+    class Address {
+    public:
+        string city;
+        string country;
+
+        void input_address() {
+            cout << "Enter City: ";
+            cin >> city;
+            cout << "Enter Country: ";
+            cin >> country;
+        }
+
+        void display_address() {
+            cout << "City: " << city << "\n";
+            cout << "Country: " << country << "\n";
+        }
+    }; 
+    
+    // Create an object of the nested class within the outer class
+    Address residence;
+
+public:
+    void input_details() {
+        cout << "--- Enter Person Details ---\n";
+        cout << "Enter Name: ";
+        cin >> name;
+        
+        cout << "\n--- Enter Address Details ---\n";
+        residence.input_address();
+    }
+
+    void display_details() {
+        cout << "\n--- Full Details ---\n";
+        cout << "Name: " << name << "\n";
+        cout << "Address:\n";
+        residence.display_address();
+    }
+};
+
+int main() {
+    // Declare an object of the Outer Class
+    Person p1;
+
+    p1.input_details();
+    p1.display_details();
+
+    return 0;
+}
+Exp - 4 (Part- A)
+#include <iostream>
+
+using namespace std;
+
+// Define the first class
+class result1 {
+private:
+    float marks1;
+
+public:
+    void read_marks() {
+        cout << "Enter marks for Result 1: ";
+        cin >> marks1;
+    }
+
+    float get_marks() const {
+        return marks1;
+    }
+};
+
+// Define the second class
+class result2 {
+private:
+    float marks2;
+
+public:
+    void read_marks() {
+        cout << "Enter marks for Result 2: ";
+        cin >> marks2;
+    }
+
+    float get_marks() const {
+        return marks2;
+    }
+};
+
+// Non-member function to calculate average, accepting objects as arguments
+void compute_average(result1 r1_obj, result2 r2_obj) {
+    float total_marks = r1_obj.get_marks() + r2_obj.get_marks();
+    float average = total_marks / 2.0;
+
+    cout << "\n--- Calculation ---\n";
+    cout << "Total Marks: " << total_marks << "\n";
+    cout << "Average of two results: " << average << "\n";
+}
+
+int main() {
+    result1 res1;
+    result2 res2;
+
+    cout << "--- Enter Data ---\n";
+    res1.read_marks();
+    res2.read_marks();
+
+    // Passing objects 'res1' and 'res2' to the function
+    compute_average(res1, res2);
+
+    return 0;
+}
+(part - b)
+#include <iostream>
+
+using namespace std;
+
+// Forward declaration of ClassB is necessary because find_greatest uses it
+class ClassB;
+
+// Define ClassA
+class ClassA {
+private:
+    int num_a;
+
+public:
+    ClassA() : num_a(0) {}
+
+    void read_data() {
+        cout << "Enter a number for Class A: ";
+        cin >> num_a;
+    }
+
+    // Declare the non-member function as a friend
+    friend void find_greatest(ClassA a, ClassB b);
+};
+
+// Define ClassB
+class ClassB {
+private:
+    int num_b;
+
+public:
+    ClassB() : num_b(0) {}
+
+    void read_data() {
+        cout << "Enter a number for Class B: ";
+        cin >> num_b;
+    }
+
+    // Declare the non-member function as a friend
+    friend void find_greatest(ClassA a, ClassB b);
+};
+
+// Definition of the friend function
+void find_greatest(ClassA a, ClassB b) {
+    cout << "\n--- Comparison ---\n";
+    if (a.num_a > b.num_b) {
+        cout << "The greatest number is from Class A: " << a.num_a << "\n";
+    } else if (b.num_b > a.num_a) {
+        cout << "The greatest number is from Class B: " << b.num_b << "\n";
+    } else {
+        cout << "Both numbers are equal: " << a.num_a << "\n";
+    }
+}
+
+int main() {
+    ClassA obj_a;
+    ClassB obj_b;
+
+    obj_a.read_data();
+    obj_b.read_data();
+
+    find_greatest(obj_a, obj_b);
+
+    return 0;
+}
+(part - c)
+#include <iostream>
+
+using namespace std;
+
+// Define the class
+class Data {
+private:
+    int value;
+
+public:
+    Data() : value(0) {}
+
+    void set_value(int v) {
+        value = v;
+    }
+
+    void display_value(const string& obj_name) const {
+        cout << obj_name << " value: " << value << "\n";
+    }
+
+    // Declare the non-member function as a friend
+    friend void swap_values(Data& d1, Data& d2);
+};
+
+// Definition of the friend function
+// Note: Objects are passed by reference (&) to allow modification
+void swap_values(Data& d1, Data& d2) {
+    int temp = d1.value;
+    d1.value = d2.value;
+    d2.value = temp;
+
+    cout << "\n--- Swap Successful ---\n";
+}
+
+int main() {
+    Data obj1;
+    Data obj2;
+    int v1, v2;
+
+    cout << "Enter value for Object 1: ";
+    cin >> v1;
+    obj1.set_value(v1);
+
+    cout << "Enter value for Object 2: ";
+    cin >> v2;
+    obj2.set_value(v2);
+
+    cout << "\n--- Before Swap ---\n";
+    obj1.display_value("Object 1");
+    obj2.display_value("Object 2");
+
+    // Calling the friend function to swap the values
+    swap_values(obj1, obj2);
+
+    cout << "\n--- After Swap ---\n";
+    obj1.display_value("Object 1");
+    obj2.display_value("Object 2");
+
+    return 0;
+}
+Exp - 5 (part - a)
+#include <iostream>
+
+using namespace std;
+
+class SumCalculator {
+private:
+    int n_limit;
+    long total_sum;
+
+public:
+    // Parameterized Constructor
+    SumCalculator(int n) {
+        n_limit = n;
+        total_sum = 0;
+        
+        // Calculate the sum within the constructor
+        for (int i = 1; i <= n_limit; ++i) {
+            total_sum += i;
+        }
+        cout << "Sum calculated by the constructor for N=" << n_limit << "\n";
+    }
+
+    // Function to display the result
+    void display_sum() {
+        cout << "\n--- Sum Result ---\n";
+        cout << "Sum of numbers from 1 to " << n_limit << " is: **" << total_sum << "**\n";
+    }
+};
+
+int main() {
+    int input_n;
+    cout << "Enter the value of N: ";
+    cin >> input_n;
+
+    // Create an object, passing 'input_n' to the parameterized constructor
+    SumCalculator sc(input_n);
+
+    sc.display_sum();
+
+    return 0;
+}
+(part - b)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class student {
+private:
+    string name;
+    float percentage;
+
+public:
+    // Parameterized Constructor to initialize data members
+    student(string n, float p) {
+        name = n;
+        percentage = p;
+        cout << "Student object initialized for: " << name << "\n";
+    }
+
+    // Function to display data
+    void display_data() {
+        cout << "\n--- Student Details ---\n";
+        cout << "Name: " << name << "\n";
+        cout << "Percentage: " << percentage << "%\n";
+    }
+};
+
+int main() {
+    string student_name;
+    float student_perc;
+
+    cout << "Enter Student Name: ";
+    getline(cin, student_name);
+    
+    cout << "Enter Student Percentage: ";
+    cin >> student_perc;
+
+    // Create the object and pass values directly to the constructor
+    student s1(student_name, student_perc);
+
+    s1.display_data();
+
+    return 0;
+}
+(part - c)
+#include <iostream>
+#include <string>
+#include <limits>
+
+using namespace std;
+
+class College {
+private:
+    int roll_no;
+    string name;
+    string course;
+
+public:
+    // Constructor with default argument for 'c'
+    College(int r, string n, string c = "Computer Engineering") {
+        roll_no = r;
+        name = n;
+        course = c;
+    }
+
+    void display_data() {
+        cout << "\nRoll No: " << roll_no << "\n";
+        cout << "Name: " << name << "\n";
+        cout << "Course: **" << course << "**\n";
+    }
+};
+
+int main() {
+    // Data for Object 1
+    int r1;
+    string n1;
+    cout << "Enter Roll No. for Student 1: ";
+    cin >> r1;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Enter Name for Student 1: ";
+    getline(cin, n1);
+    
+    // Object 1: Uses the default course "Computer Engineering"
+    College c1(r1, n1); 
+
+    // Data for Object 2 (Specifying a different course)
+    int r2;
+    string n2, c2;
+    cout << "\nEnter Roll No. for Student 2: ";
+    cin >> r2;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout << "Enter Name for Student 2: ";
+    getline(cin, n2);
+    cout << "Enter Course for Student 2: ";
+    getline(cin, c2);
+
+    // Object 2: Overrides the default course
+    College c2_obj(r2, n2, c2); 
+
+    cout << "\n--- Details for Object 1 (Default Course) ---\n";
+    c1.display_data();
+    
+    cout << "\n--- Details for Object 2 (Specified Course) ---\n";
+    c2_obj.display_data();
+
+    return 0;
+}
+(part - D)
+#include <iostream>
+
+using namespace std;
+
+class Point {
+private:
+    int x;
+    int y;
+
+public:
+    // 1. Default Constructor (No arguments)
+    Point() {
+        x = 0;
+        y = 0;
+        cout << "Default Constructor called (Initialized to 0, 0)\n";
+    }
+
+    // 2. Parameterized Constructor (Two arguments)
+    Point(int x_val, int y_val) {
+        x = x_val;
+        y = y_val;
+        cout << "Parameterized Constructor (2 args) called\n";
+    }
+
+    // 3. Copy Constructor (One object argument)
+    // Note: Technically not overloading, but essential constructor type often included
+    Point(const Point& other) {
+        x = other.x;
+        y = other.y;
+        cout << "Copy Constructor called\n";
+    }
+    
+    // 4. Parameterized Constructor (One argument - sets both x and y)
+    Point(int val) {
+        x = val;
+        y = val;
+        cout << "Parameterized Constructor (1 arg) called\n";
+    }
+
+    void display_coordinates(const string& obj_name) {
+        cout << obj_name << ": (" << x << ", " << y << ")\n";
+    }
+};
+
+int main() {
+    cout << "--- Demonstrating Constructor Overloading ---\n";
+
+    // Calls Constructor 2 (Parameterized - Two args)
+    Point p1(10, 20);
+    p1.display_coordinates("P1"); 
+
+    // Calls Constructor 1 (Default)
+    Point p2;
+    p2.display_coordinates("P2");
+
+    // Calls Constructor 4 (Parameterized - One arg)
+    Point p3(5);
+    p3.display_coordinates("P3");
+    
+    // Calls Constructor 3 (Copy)
+    Point p4 = p1;
+    p4.display_coordinates("P4");
+
+    return 0;
+}
+Exp - 6 (part - a)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Base Class (Level 1)
+class Vehicle {
+protected:
+    int wheels;
+    string model;
+public:
+    Vehicle() : wheels(0), model("Unknown") {}
+    void input_vehicle() {
+        cout << "Enter Vehicle Model: ";
+        cin >> model;
+        cout << "Enter Number of Wheels: ";
+        cin >> wheels;
+    }
+    void display_vehicle() {
+        cout << "Model: " << model << "\n";
+        cout << "Wheels: " << wheels << "\n";
+    }
+};
+
+// Intermediate Class (Level 2)
+class Car : public Vehicle {
+protected:
+    int seats;
+public:
+    Car() : seats(0) {}
+    void input_car() {
+        input_vehicle();
+        cout << "Enter Number of Seats: ";
+        cin >> seats;
+    }
+    void display_car() {
+        display_vehicle();
+        cout << "Seats: " << seats << "\n";
+    }
+};
+
+// Derived Class (Level 3)
+class SportsCar : public Car {
+private:
+    int max_speed;
+public:
+    SportsCar() : max_speed(0) {}
+    void input_sportscar() {
+        input_car();
+        cout << "Enter Max Speed (km/h): ";
+        cin >> max_speed;
+    }
+    void display_sportscar() {
+        cout << "\n--- Sports Car Details (Multilevel) ---\n";
+        display_car();
+        cout << "Max Speed: " << max_speed << " km/h\n";
+    }
+};
+
+int main() {
+    SportsCar sc;
+    sc.input_sportscar();
+    sc.display_sportscar();
+    return 0;
+}
+(part - b)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Base Class 1
+class Student {
+protected:
+    string student_id;
+    float gpa;
+public:
+    Student() : student_id(""), gpa(0.0) {}
+    void input_student() {
+        cout << "Enter Student ID: ";
+        cin >> student_id;
+        cout << "Enter GPA: ";
+        cin >> gpa;
+    }
+};
+
+// Base Class 2
+class Teacher {
+protected:
+    string employee_id;
+    string subject;
+public:
+    Teacher() : employee_id(""), subject("") {}
+    void input_teacher() {
+        cout << "Enter Employee ID: ";
+        cin >> employee_id;
+        cout << "Enter Subject Taught: ";
+        cin >> subject;
+    }
+};
+
+// Derived Class (inherits from both Student and Teacher)
+class TeacherStudent : public Student, public Teacher {
+private:
+    string name;
+public:
+    void input_data() {
+        cout << "Enter Name: ";
+        cin >> name;
+        input_student();
+        input_teacher();
+    }
+    void display_data() {
+        cout << "\n--- Teacher/Student Details (Multiple Inheritance) ---\n";
+        cout << "Name: " << name << "\n";
+        cout << "Student ID: " << student_id << ", GPA: " << gpa << "\n";
+        cout << "Employee ID: " << employee_id << ", Subject: " << subject << "\n";
+    }
+};
+
+int main() {
+    TeacherStudent ts;
+    ts.input_data();
+    ts.display_data();
+    return 0;
+}
+(part - c)
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+// Base Class
+class Shape {
+protected:
+    float dimension1;
+public:
+    void get_dimension(const string& dim_name) {
+        cout << "Enter " << dim_name << ": ";
+        cin >> dimension1;
+    }
+};
+
+// Derived Class 1 (Circle)
+class Circle : public Shape {
+public:
+    void calculate_area() {
+        get_dimension("Radius");
+        float area = M_PI * dimension1 * dimension1;
+        cout << "Area of Circle: " << area << "\n";
+    }
+};
+
+// Derived Class 2 (Square)
+class Square : public Shape {
+public:
+    void calculate_area() {
+        get_dimension("Side Length");
+        float area = dimension1 * dimension1;
+        cout << "Area of Square: " << area << "\n";
+    }
+};
+
+int main() {
+    cout << "--- Hierarchical Inheritance Demo ---\n";
+    Circle c;
+    c.calculate_area();
+    
+    cout << "\n";
+    
+    Square s;
+    s.calculate_area();
+    
+    return 0;
+}
+(part - D)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Base Class (Top)
+class Person {
+protected:
+    string name;
+public:
+    void get_name() {
+        cout << "Enter Name: ";
+        cin >> name;
+    }
+};
+
+// Intermediate Class 1 (Inherits Person)
+class Student : public Person {
+protected:
+    string course;
+public:
+    void get_course() {
+        cout << "Enter Course: ";
+        cin >> course;
+    }
+};
+
+// Intermediate Class 2 (Inherits Person)
+class Employee { 
+    // Not inheriting from Person here to simplify the hybrid structure
+protected:
+    int salary;
+public:
+    void get_salary() {
+        cout << "Enter Salary: ";
+        cin >> salary;
+    }
+};
+
+// Derived Class (Inherits Student and Employee - Multiple Inheritance)
+class TA : public Student, public Employee {
+public:
+    void input_data() {
+        cout << "--- Enter TA Details (Hybrid) ---\n";
+        get_name(); // Inherited from Person (via Student)
+        get_course();
+        get_salary();
+    }
+    void display_data() {
+        cout << "\n--- TA Details ---\n";
+        cout << "Name: " << name << "\n";
+        cout << "Course: " << course << "\n";
+        cout << "Salary: " << salary << "\n";
+    }
+};
+
+int main() {
+    TA ta_obj;
+    ta_obj.input_data();
+    ta_obj.display_data();
+    return 0;
+}
+(part - E)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Base Class (Made Virtual)
+class Person {
+protected:
+    string name;
+    int id;
+public:
+    Person(const string& n = "None", int i = 0) : name(n), id(i) {
+        cout << "Person Constructor called.\n";
+    }
+    void input_person() {
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter ID: ";
+        cin >> id;
+    }
+    void display_person() {
+        cout << "Name: " << name << ", ID: " << id << "\n";
+    }
+};
+
+// Intermediate Class 1 (Virtual Inheritance)
+class Student : virtual public Person {
+protected:
+    string major;
+public:
+    Student(const string& m = "N/A") : major(m) {
+        cout << "Student Constructor called.\n";
+    }
+    void input_student() {
+        cout << "Enter Major: ";
+        cin >> major;
+    }
+};
+
+// Intermediate Class 2 (Virtual Inheritance)
+class Faculty : virtual public Person {
+protected:
+    string department;
+public:
+    Faculty(const string& d = "N/A") : department(d) {
+        cout << "Faculty Constructor called.\n";
+    }
+    void input_faculty() {
+        cout << "Enter Department: ";
+        cin >> department;
+    }
+};
+
+// Derived Class (TeachingAssistant)
+class TeachingAssistant : public Student, public Faculty {
+public:
+    // TA constructor must explicitly call the Grand Base (Person) constructor
+    TeachingAssistant(const string& n, int i, const string& m, const string& d) 
+        : Person(n, i), Student(m), Faculty(d) {
+        cout << "TeachingAssistant Constructor called.\n";
+    }
+
+    void input_data() {
+        cout << "--- Enter TA Data (Virtual Base Class Demo) ---\n";
+        input_person(); 
+        input_student();
+        input_faculty();
+    }
+    
+    void display_data() {
+        cout << "\n--- Final TA Details ---\n";
+        display_person(); 
+        cout << "Major: " << major << "\n";
+        cout << "Department: " << department << "\n";
+    }
+};
+
+int main() {
+    TeachingAssistant ta("Default", 0, "Default", "Default");
+    
+    ta.input_data();
+    
+    // Call is unambiguous as Person is shared (Virtual Base Class)
+    ta.display_data(); 
+
+    return 0;
+}
+Exp - 7 (part A)
+#include <iostream>
+
+using namespace std;
+
+class AreaCalculator {
+public:
+    // Overloaded function 1: Area of Rectangle (Laboratory)
+    float calculate_area(float length, float width) {
+        return length * width;
+    }
+
+    // Overloaded function 2: Area of Square (Classroom)
+    float calculate_area(float side) {
+        return side * side;
+    }
+};
+
+int main() {
+    AreaCalculator ac;
+    float lab_length, lab_width;
+    float classroom_side;
+
+    cout << "--- Laboratory Area (Rectangle) ---\n";
+    cout << "Enter Laboratory Length: ";
+    cin >> lab_length;
+    cout << "Enter Laboratory Width: ";
+    cin >> lab_width;
+
+    // Calls calculate_area(float, float)
+    float lab_area = ac.calculate_area(lab_length, lab_width);
+    cout << "Area of Laboratory: " << lab_area << " sq units\n";
+
+    cout << "\n--- Classroom Area (Square) ---\n";
+    cout << "Enter Classroom Side Length: ";
+    cin >> classroom_side;
+
+    // Calls calculate_area(float)
+    float classroom_area = ac.calculate_area(classroom_side);
+    cout << "Area of Classroom: " << classroom_area << " sq units\n";
+
+    return 0;
+}
+(part - b)
+#include <iostream>
+
+using namespace std;
+
+class Summation {
+private:
+    static const int FLOAT_COUNT = 5;
+    static const int INT_COUNT = 10;
+
+public:
+    // Overloaded function 1: Sum of 5 float values
+    float calculate_sum(float arr[FLOAT_COUNT]) {
+        float sum = 0.0;
+        for (int i = 0; i < FLOAT_COUNT; ++i) {
+            sum += arr[i];
+        }
+        return sum;
+    }
+
+    // Overloaded function 2: Sum of 10 integer values
+    int calculate_sum(int arr[INT_COUNT]) {
+        int sum = 0;
+        for (int i = 0; i < INT_COUNT; ++i) {
+            sum += arr[i];
+        }
+        return sum;
+    }
+};
+
+int main() {
+    Summation s;
+    
+    float float_data[5] = {1.5f, 2.5f, 3.5f, 4.5f, 5.5f};
+    int int_data[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    // Calculate float sum (Calls float version)
+    float float_sum = s.calculate_sum(float_data);
+    cout << "Sum of 5 float values (1.5...5.5): " << float_sum << "\n";
+
+    // Calculate integer sum (Calls int version)
+    int int_sum = s.calculate_sum(int_data);
+    cout << "Sum of 10 integer values (1...10): " << int_sum << "\n";
+
+    return 0;
+}
+(part - c)
+#include <iostream>
+
+using namespace std;
+
+class Value {
+private:
+    int num;
+
+public:
+    Value(int n = 0) : num(n) {}
+
+    void display_value() {
+        cout << "Current Value: " << num << "\n";
+    }
+
+    // Overload the Unary Minus (-) operator
+    void operator- () {
+        num = -num;
+    }
+};
+
+int main() {
+    Value v1(50);
+
+    cout << "Initial Value:\n";
+    v1.display_value(); 
+
+    cout << "\nApplying Unary Minus (-) operator:\n";
+    // This calls v1.operator-()
+    -v1; 
+
+    cout << "Negated Value:\n";
+    v1.display_value(); 
+    
+    cout << "\nApplying Unary Minus (-) again:\n";
+    -v1;
+    
+    cout << "Negated Value (back to positive):\n";
+    v1.display_value();
+
+    return 0;
+}
+(part - D)
+#include <iostream>
+
+using namespace std;
+
+class Counter {
+private:
+    int count;
+
+public:
+    Counter(int c = 0) : count(c) {}
+
+    void display_count() {
+        cout << "Count: " << count << "\n";
+    }
+
+    // Overload Pre-increment (++obj)
+    Counter operator++ () {
+        ++count;
+        return *this;
+    }
+
+    // Overload Post-increment (obj++)
+    // The 'int' parameter is a dummy to distinguish it from the pre-increment version
+    Counter operator++ (int) {
+        Counter temp = *this; // Save the original value
+        count++;            // Increment the current object
+        return temp;        // Return the saved (original) value
+    }
+};
+
+int main() {
+    Counter c1(10);
+    Counter c2(20);
+    Counter result;
+
+    cout << "--- Pre-Increment Demonstration (++obj) ---\n";
+    cout << "Initial C1: ";
+    c1.display_count(); 
+    
+    result = ++c1; // result gets the new value (11)
+    
+    cout << "After ++C1:\n";
+    cout << "C1: ";
+    c1.display_count(); // 11
+    cout << "Result: ";
+    result.display_count(); // 11
+
+    cout << "\n--- Post-Increment Demonstration (obj++) ---\n";
+    cout << "Initial C2: ";
+    c2.display_count(); // 20
+
+    result = c2++; // result gets the original value (20), then C2 increments
+    
+    cout << "After C2++:\n";
+    cout << "C2: ";
+    c2.display_count(); // 21
+    cout << "Result: ";
+    result.display_count(); // 20 (The value before increment)
+
+    return 0;
+}
+Exp - 8 ( Part - A) (one object)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class student {
+private:
+    int roll_no;
+    string name;
+    string student_class;
+
+public:
+    void accept_data() {
+        cout << "Enter Roll Number: ";
+        cin >> roll_no;
+        cin.ignore();
+        
+        cout << "Enter Name: ";
+        getline(cin, name);
+        
+        cout << "Enter Class: ";
+        getline(cin, student_class);
+    }
+
+    void display_data() {
+        cout << "\n--- Student Details ---\n";
+        cout << "Roll Number: " << roll_no << "\n";
+        cout << "Name: " << name << "\n";
+        cout << "Class: " << student_class << "\n";
+    }
+};
+
+int main() {
+    student s1;
+
+    cout << "--- Enter Data for One Student ---\n";
+    s1.accept_data();
+    s1.display_data();
+
+    return 0;
+}
+(part - B) (Compare price)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Book {
+private:
+    string book_name;
+    float price;
+    int no_of_pages;
+
+public:
+    void accept_data() {
+        cin.ignore();
+        cout << "Enter Book Name: ";
+        getline(cin, book_name);
+        
+        cout << "Enter Price: ";
+        cin >> price;
+        
+        cout << "Enter Number of Pages: ";
+        cin >> no_of_pages;
+    }
+
+    float get_price() const {
+        return price;
+    }
+
+    string get_book_name() const {
+        return book_name;
+    }
+};
+
+int main() {
+    Book book1, book2;
+
+    cout << "--- Enter Data for Book 1 ---\n";
+    book1.accept_data();
+
+    cout << "\n--- Enter Data for Book 2 ---\n";
+    cin.ignore(); 
+    book2.accept_data();
+    
+    cout << "\n--- Price Comparison ---\n";
+    if (book1.get_price() > book2.get_price()) {
+        cout << "**Book with greater price is: " << book1.get_book_name() << "** (Price: " << book1.get_price() << ")\n";
+    } else if (book2.get_price() > book1.get_price()) {
+        cout << "**Book with greater price is: " << book2.get_book_name() << "** (Price: " << book2.get_price() << ")\n";
+    } else {
+        cout << "Both books have the same price.\n";
+    }
+
+    return 0;
+}
+(part - c) (Convert to seconds)
+#include <iostream>
+#include <string>
+#include <sstream>
+
+using namespace std;
+
+class Time {
+private:
+    int hours;
+    int minutes;
+    int seconds;
+    long total_seconds;
+
+public:
+    void accept_time() {
+        string time_str;
+        cout << "Enter time in HH:MM:SS format (e.g., 05:30:15): ";
+        cin >> time_str;
+
+        char colon;
+        stringstream ss(time_str);
+        
+        if (ss >> hours >> colon && colon == ':' && 
+            ss >> minutes >> colon && colon == ':' && 
+            ss >> seconds) {
+            
+            if (hours >= 0 && minutes >= 0 && minutes < 60 && seconds >= 0 && seconds < 60) {
+                cout << "Time accepted: " << hours << "h " << minutes << "m " << seconds << "s\n";
+            } else {
+                cout << "Invalid time components entered. Setting to 00:00:00.\n";
+                hours = minutes = seconds = 0;
+            }
+        } else {
+            cout << "Invalid time format. Setting to 00:00:00.\n";
+            hours = minutes = seconds = 0;
+        }
+    }
+
+    void convert_to_seconds() {
+        total_seconds = (long)hours * 3600 + (long)minutes * 60 + (long)seconds;
+    }
+
+    void display_total_seconds() {
+        cout << "\n--- Conversion Result ---\n";
+        cout << "The time (" << hours << ":" << minutes << ":" << seconds << ") is equivalent to:\n";
+        cout << "**Total Seconds: " << total_seconds << "**\n";
+    }
+};
+
+int main() {
+    Time t1;
+    t1.accept_time();
+    t1.convert_to_seconds();
+    t1.display_total_seconds();
+
+    return 0;
+}
+(Polymorphism) ( 2. part A)
+#include <iostream>
+#include <string>
+#include <cstring>
+
+using namespace std;
+
+class CustomString {
+private:
+    char str[100];
+public:
+    CustomString() {
+        str[0] = '\0';
+    }
+    CustomString(const char s[]) {
+        strcpy(str, s);
+    }
+    
+    void display() const {
+        cout << str;
+    }
+
+    // Overload Binary '+' operator for concatenation
+    CustomString operator+ (const CustomString& other) {
+        CustomString result;
+        strcpy(result.str, str);
+        strcat(result.str, other.str);
+        return result;
+    }
+};
+
+int main() {
+    CustomString s1("xyz");
+    CustomString s2("pqr");
+    CustomString s3;
+
+    cout << "String 1: ";
+    s1.display();
+    cout << "\nString 2: ";
+    s2.display();
+
+    // Calls s1.operator+(s2)
+    s3 = s1 + s2; 
+
+    cout << "\n\nResult of concatenation (String 1 + String 2):\n";
+    cout << "Output: **";
+    s3.display();
+    cout << "**\n";
+
+    return 0;
+}
+(Part - b)
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// Base Class (ILogin)
+class ILogin {
+protected:
+    string name;
+    string password;
+
+public:
+    ILogin() : name(""), password("") {}
+    
+    // Virtual function for Run-time Polymorphism
+    virtual void accept() {
+        cout << "Enter Name: ";
+        cin >> name;
+        cout << "Enter Password: ";
+        cin >> password;
+    }
+
+    void display_base() const {
+        cout << "Name: " << name << "\n";
+        cout << "Password: " << password << "\n";
+    }
+    
+    // Virtual destructor is good practice for base classes
+    virtual ~ILogin() {}
+};
+
+// Derived Class 1
+class EmailLogin : public ILogin {
+private:
+    string email_provider;
+public:
+    // Override the virtual accept function
+    void accept() override {
+        cout << "\n--- Email Login Details ---\n";
+        ILogin::accept();
+        cout << "Enter Email Provider (e.g., gmail): ";
+        cin >> email_provider;
+    }
+    
+    void display() const {
+        display_base();
+        cout << "Provider: " << email_provider << "\n";
+    }
+};
+
+// Derived Class 2
+class MembershipLogin : public ILogin {
+private:
+    string membership_type;
+public:
+    // Override the virtual accept function
+    void accept() override {
+        cout << "\n--- Membership Login Details ---\n";
+        ILogin::accept();
+        cout << "Enter Membership Type (e.g., Premium): ";
+        cin >> membership_type;
+    }
+    
+    void display() const {
+        display_base();
+        cout << "Type: " << membership_type << "\n";
+    }
+};
+
+int main() {
+    EmailLogin email_emp;
+    MembershipLogin member_emp;
+    
+    // Pointers to Base Class
+    ILogin* ptr_email = &email_emp;
+    ILogin* ptr_member = &member_emp;
+
+    // Run-time Polymorphism: The call resolves to the derived class's accept()
+    ptr_email->accept(); 
+    ptr_member->accept();
+
+    cout << "\n========================================\n";
+    cout << "--- DISPLAYING EMPLOYEE LOGIN DETAILS ---\n";
+    cout << "========================================\n";
+    
+    email_emp.display();
+    
+    cout << "\n";
+    member_emp.display();
+
+    return 0;
+}
+Exp - 9 ( part - A)
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+void create_first_file_if_not_exists() {
+    ofstream ofile("First.txt", ios::out);
+    if (ofile.is_open()) {
+        ofile << "This is the content of the first file.\n";
+        ofile << "It is being copied to the second file.\n";
+        ofile.close();
+        cout << "Note: 'First.txt' created with sample content for demonstration.\n";
+    }
+}
+
+int main() {
+    create_first_file_if_not_exists();
+
+    ifstream fin("First.txt", ios::in);
+    ofstream fout("Second.txt", ios::out);
+
+    if (!fin.is_open()) {
+        cerr << "Error: Could not open First.txt for reading.\n";
+        return 1;
+    }
+
+    if (!fout.is_open()) {
+        cerr << "Error: Could not open Second.txt for writing.\n";
+        fin.close();
+        return 1;
+    }
+
+    char ch;
+    while (fin.get(ch)) {
+        fout.put(ch);
+    }
+
+    fin.close();
+    fout.close();
+
+    cout << "\nFile Copy Successful!\n";
+    cout << "Contents of 'First.txt' copied to 'Second.txt'.\n";
+
+    return 0;
+}
+(part - b)
+#include <iostream>
+#include <fstream>
+#include <cctype>
+
+using namespace std;
+
+int main() {
+    // Note: Creating a sample file for demonstration
+    ofstream sample_out("sample.txt");
+    sample_out << "My address is 123 Main Street. The year is 2024. Total 5 digits and 7 spaces here.\n";
+    sample_out.close();
+
+    ifstream fin("sample.txt");
+    if (!fin.is_open()) {
+        cerr << "Error: Could not open sample.txt.\n";
+        return 1;
+    }
+
+    char ch;
+    int digit_count = 0;
+    int space_count = 0;
+
+    while (fin.get(ch)) {
+        if (isdigit(ch)) {
+            digit_count++;
+        } else if (isspace(ch)) {
+            space_count++;
+        }
+    }
+
+    fin.close();
+
+    cout << "\n--- Count Digits and Spaces ---\n";
+    cout << "Total Digits found: " << digit_count << "\n";
+    cout << "Total Spaces found: " << space_count << "\n";
+
+    return 0;
+}
+Exp - 10 (Combined Code)
+#include <iostream>
+#include <string>
+#include <limits> // Needed for numeric_limits in Part c
+
+using namespace std;
+
+// --- Part a: Sum of Numbers Using Parameterized Constructor (SumCalculator) ---
+class SumCalculator {
+private:
+    int n_limit;
+    long total_sum;
+
+public:
+    // Parameterized Constructor
+    SumCalculator(int n) {
+        n_limit = n;
+        total_sum = 0;
+        
+        for (int i = 1; i <= n_limit; ++i) {
+            total_sum += i;
+        }
+    }
+
+    void display_sum() {
+        cout << "Sum of numbers from 1 to " << n_limit << " is: **" << total_sum << "**\n";
+    }
+};
+
+// --- Part b: Initializing Data Members with Parameterized Constructor (student) ---
+class student {
+private:
+    string name;
+    float percentage;
+
+public:
+    // Parameterized Constructor
+    student(string n, float p) {
+        name = n;
+        percentage = p;
+    }
+
+    void display_data() {
+        cout << "Name: " << name << "\n";
+        cout << "Percentage: " << percentage << "%\n";
+    }
+};
+
+// --- Part c: Constructor with Default Argument (College) ---
+class College {
+private:
+    int roll_no;
+    string name;
+    string course;
+
+public:
+    // Constructor with default argument for 'course'
+    College(int r, string n, string c = "Computer Engineering") {
+        roll_no = r;
+        name = n;
+        course = c;
+    }
+
+    void display_data() {
+        cout << "  Roll No: " << roll_no << "\n";
+        cout << "  Name: " << name << "\n";
+        cout << "  Course: **" << course << "**\n";
+    }
+};
+
+// --- Part d: Constructor Overloading (Point) ---
+class Point {
+private:
+    int x;
+    int y;
+
+public:
+    // 1. Default Constructor (No arguments)
+    Point() {
+        x = 0;
+        y = 0;
+    }
+
+    // 2. Parameterized Constructor (Two arguments)
+    Point(int x_val, int y_val) {
+        x = x_val;
+        y = y_val;
+    }
+
+    // 3. Parameterized Constructor (One argument)
+    Point(int val) {
+        x = val;
+        y = val;
+    }
+
+    void display_coordinates(const string& obj_name) {
+        cout << obj_name << " Coordinates: (" << x << ", " << y << ")\n";
+    }
+};
+
+// =======================================================
+//                       MAIN FUNCTION
+// =======================================================
+int main() {
+
+    // --- DEMONSTRATION 5a: Sum of Numbers using Parameterized Constructor ---
+    cout << "=================================================\n";
+    cout << "5a) Sum of Numbers (1 to N) using Parameterized Constructor\n";
+    cout << "=================================================\n";
+    int input_n = 10;
+    cout << "Calculating sum for N = " << input_n << "\n";
+    SumCalculator sc(input_n);
+    sc.display_sum();
+    cout << "\n";
+
+    // --- DEMONSTRATION 5b: Student Data Initialization using Parameterized Constructor ---
+    cout << "=================================================\n";
+    cout << "5b) Student Data Initialization using Parameterized Constructor\n";
+    cout << "=================================================\n";
+    string s_name = "Alice Smith";
+    float s_perc = 85.5f;
+    cout << "Initializing student object with name: " << s_name << ", percentage: " << s_perc << "%\n";
+    student s1(s_name, s_perc);
+    s1.display_data();
+    cout << "\n";
+
+    // --- DEMONSTRATION 5c: Constructor with Default Argument ---
+    cout << "=================================================\n";
+    cout << "5c) Constructor with Default Argument (Course)\n";
+    cout << "=================================================\n";
+
+    // Object 1: Uses the default course ("Computer Engineering")
+    College c1(101, "Bob Johnson"); 
+    cout << "Object 1 (Default Course):\n";
+    c1.display_data();
+    
+    // Object 2: Overrides the default course
+    College c2(102, "Charlie Brown", "Electrical Engineering"); 
+    cout << "Object 2 (Specified Course):\n";
+    c2.display_data();
+    cout << "\n";
+    
+    // --- DEMONSTRATION 5d: Constructor Overloading ---
+    cout << "=================================================\n";
+    cout << "5d) Constructor Overloading (Point Class)\n";
+    cout << "=================================================\n";
+
+    // Calls Default Constructor (No args)
+    Point p1;
+    p1.display_coordinates("P1 (Default)"); 
+
+    // Calls Parameterized Constructor (Two args)
+    Point p2(15, 25);
+    p2.display_coordinates("P2 (Two Args)");
+
+    // Calls Parameterized Constructor (One arg)
+    Point p3(7);
+    p3.display_coordinates("P3 (One Arg)");
+
+    return 0;
+Exp - 11 
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+template <class T>
+class GenericVector {
+private:
+    std::vector<T> data;
+
+public:
+    // To create the vector (Constructor)
+    GenericVector() {}
+
+    // Function to initialize the vector elements
+    void createVector(const std::vector<T>& initialData) {
+        data = initialData;
+    }
+
+    // a) To modify the value of a given element
+    bool modifyElement(int index, const T& newValue) {
+        if (index >= 0 && index < data.size()) {
+            data[index] = newValue;
+            return true;
+        }
+        return false;
+    }
+
+    // b) To multiply by a scalar value (Assumes T supports multiplication with T)
+    void multiplyByScalar(const T& scalar) {
+        for (size_t i = 0; i < data.size(); ++i) {
+            data[i] = data[i] * scalar;
+        }
+    }
+
+    // c) To display the vector in the form (10,20,30,...)
+    void displayVector() const {
+        std::cout << "(";
+        for (size_t i = 0; i < data.size(); ++i) {
+            std::cout << data[i];
+            if (i < data.size() - 1) {
+                std::cout << ",";
+            }
+        }
+        std::cout << ")" << std::endl;
+    }
+};
+
+int main() {
+    using namespace std;
+
+    cout << "--- Integer Vector Test ---" << endl;
+    GenericVector<int> intVec;
+    
+    vector<int> initialInts = {10, 20, 30, 40};
+    intVec.createVector(initialInts);
+    
+    cout << "Initial Vector: ";
+    intVec.displayVector();
+
+    // a) Modify element at index 1 (20 -> 25)
+    if (intVec.modifyElement(1, 25)) {
+        cout << "After modifying element at index 1: ";
+    } else {
+        cout << "Modification failed (invalid index). Current Vector: ";
+    }
+    intVec.displayVector();
+
+    // b) Multiply by scalar 2
+    intVec.multiplyByScalar(2);
+    cout << "After multiplying by scalar 2: ";
+    intVec.displayVector();
+    
+    cout << "--- Double Vector Test ---" << endl;
+    GenericVector<double> doubleVec;
+    
+    vector<double> initialDoubles = {1.5, 2.5, 3.5};
+    doubleVec.createVector(initialDoubles);
+    
+    cout << "Initial Vector: ";
+    doubleVec.displayVector();
+
+    // a) Modify element at index 0 (1.5 -> 5.0)
+    doubleVec.modifyElement(0, 5.0);
+    cout << "After modifying element at index 0: ";
+    doubleVec.displayVector();
+
+    // b) Multiply by scalar 1.5
+    doubleVec.multiplyByScalar(1.5);
+    cout << "After multiplying by scalar 1.5: ";
+    doubleVec.displayVector();
+    
+    return 0;
+}
+Exp - 12
+#include <iostream>
+#include <stack>
+#include <string>
+
+void implementStack() {
+    using namespace std;
+
+    cout << "--- STL Stack Implementation ---" << endl;
+    stack<string> bookStack;
+
+    bookStack.push("Book A");
+    bookStack.push("Book B");
+    bookStack.push("Book C");
+
+    cout << "Current stack size: " << bookStack.size() << endl;
+
+    cout << "Top element: " << bookStack.top() << endl;
+
+    bookStack.pop();
+    cout << "Popped one element." << endl;
+
+    cout << "New top element: " << bookStack.top() << endl;
+
+    bookStack.pop();
+    bookStack.pop();
+
+    if (bookStack.empty()) {
+        cout << "Stack is now empty." << endl;
+    }
+}
+
